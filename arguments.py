@@ -5,7 +5,7 @@ def get_args():
     parser = argparse.ArgumentParser(description='DQN')
 
     # Basic Arguments
-    parser.add_argument('--seed', type=int, default=1122,
+    parser.add_argument('--seed', type=int, default=0,
                         help='Random seed')
     parser.add_argument('--batch-size', type=int, default=32,
                         help='Batch size')
