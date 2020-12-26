@@ -6,8 +6,8 @@ import gym
 import time, os
 from tensorboardX import SummaryWriter
 
-from common.utils import create_log_dir, print_args, set_global_seeds
-from common.wrappers import make_atari, wrap_atari_dqn
+from utils import create_log_dir, print_args, set_global_seeds
+from wrappers import make_atari, wrap_atari_dqn
 from arguments import get_args
 from train import train
 from test import test

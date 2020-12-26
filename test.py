@@ -2,7 +2,7 @@ import torch
 import torch.optim as optim
 
 import os
-from common.utils import load_model
+from utils import load_model
 from model import DQN
 
 from gym.wrappers import Monitor

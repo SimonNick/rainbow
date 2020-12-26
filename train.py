@@ -6,9 +6,9 @@ import time, os
 import numpy as np
 from collections import deque
 
-from common.utils import epsilon_scheduler, beta_scheduler, update_target, print_log, load_model, save_model, print_progress
+from utils import epsilon_scheduler, beta_scheduler, update_target, print_log, load_model, save_model, print_progress
 from model import DQN
-from common.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
+from replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
 
 def train(env, args, writer): 
     current_model = DQN(env, args).to(args.device)
@@ -46,7 +46,7 @@ def train(env, args, writer):
     state = env.reset()
     for frame_idx in range(1, args.max_frames + 1):
         
-        print_progress(frame_idx, n_episodes)
+        print_progress(frame_idx, args.max_frames, n_episodes)
 
         if args.render:
             env.render()
@@ -95,7 +95,7 @@ def train(env, args, writer):
             update_target(current_model, target_model)
 
         if frame_idx % args.evaluation_interval == 0:
-            print_log(frame_idx, n_episodes, prev_frame, prev_time, reward_list, length_list, loss_list)
+            print_log(frame_idx, args.max_frames, n_episodes, prev_frame, prev_time, reward_list, length_list, loss_list)
             reward_list.clear(), length_list.clear(), loss_list.clear()
             prev_frame = frame_idx
             prev_time = time.time()

@@ -43,26 +43,28 @@ def create_log_dir(args):
     log_dir = os.path.join("runs", log_dir)
     return log_dir
 
-def print_progress(frame, n_episodes):
-    print("\rFrame: {:<8}\tEpisode: {}".format(frame, n_episodes), end="")
+def print_progress(frame, max_frames, n_episodes):
+    print("\rFrame: {:>8} / {}\tEpisode: {}".format(frame, max_frames, n_episodes), end="")
 
-def print_log(frame, n_episodes, prev_frame, prev_time, reward_list, length_list, loss_list):
+def print_log(frame, max_frames, n_episodes, prev_frame, prev_time, reward_list, length_list, loss_list):
     fps = (frame - prev_frame) / (time.time() - prev_time)
     avg_reward = np.mean(reward_list)
     avg_length = np.mean(length_list)
     avg_loss = np.mean(loss_list) if len(loss_list) != 0 else 0.
 
-    print("\rFrame: {:<8}\tEpisode: {}\tFPS: {:.2f}\tAvg. Reward: {:.2f}\tAvg. Length: {:.2f}\tAvg. Loss: {:.2f}".format(
-        frame, n_episodes, fps, avg_reward, avg_length, avg_loss
+    print("\r" + " " * 50, end="")
+    print("\rFrame: {:>8} / {}\tEpisode: {}\tFPS: {:.2f}\tAvg. Reward: {:.2f}\tAvg. Length: {:.2f}\tAvg. Loss: {:.2f}".format(
+        frame, max_frames, n_episodes, fps, avg_reward, avg_length, avg_loss
     ))
 
 def print_args(args):
     print("Arguments\n=============")
     for arg in vars(args):
         print("{} = {}".format(arg, getattr(args, arg)))
-    print("")
+    print("\nGame: ", args.env)
+    print("Model: {}\n".format(model_name(args)))
 
-def save_model(model, args):
+def model_name(args):
     fname = ""
     if args.multi_step != 1:
         fname += "{}-step-".format(args.multi_step)
@@ -76,7 +78,11 @@ def save_model(model, args):
         fname += "double-"
     if args.noisy:
         fname += "noisy-"
-    fname += "dqn-{}.pth".format(args.save_model)
+    fname += "dqn"
+    return fname
+    
+def save_model(model, args):
+    fname = "{}-{}.pth".format(model_name(args), args.save_model)
     fname = os.path.join("models", fname)
 
     pathlib.Path('models').mkdir(exist_ok=True)

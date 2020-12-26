@@ -149,7 +149,7 @@ class FrameStack(gym.Wrapper):
         Returns lazy array, which is much more memory efficient.
         See Also
         --------
-        baselines.common.atari_wrappers.LazyFrames
+        baselines.atari_wrappers.LazyFrames
         """
         gym.Wrapper.__init__(self, env)
         self.k = k
