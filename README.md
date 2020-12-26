@@ -1,6 +1,6 @@
 # Rainbow
 
-![](Breakout.gif | width=100)
+<img src="Breakout.gif" width="200">
 
 An implementation of Rainbow in PyTorch. A lot of codes are borrowed from [baselines](https://github.com/openai/baselines), [NoisyNet-A3C](https://github.com/Kaixhin/NoisyNet-A3C), [RL-Adventure](https://github.com/higgsfield).
 
