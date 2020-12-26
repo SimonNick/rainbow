@@ -43,20 +43,24 @@ def create_log_dir(args):
     log_dir = os.path.join("runs", log_dir)
     return log_dir
 
-def print_log(frame, prev_frame, prev_time, reward_list, length_list, loss_list):
+def print_progress(frame, n_episodes):
+    print("\rFrame: {:<8}\tEpisode: {}".format(frame, n_episodes), end="")
+
+def print_log(frame, n_episodes, prev_frame, prev_time, reward_list, length_list, loss_list):
     fps = (frame - prev_frame) / (time.time() - prev_time)
     avg_reward = np.mean(reward_list)
     avg_length = np.mean(length_list)
     avg_loss = np.mean(loss_list) if len(loss_list) != 0 else 0.
 
-    print("Frame: {:<8} FPS: {:.2f} Avg. Reward: {:.2f} Avg. Length: {:.2f} Avg. Loss: {:.2f}".format(
-        frame, fps, avg_reward, avg_length, avg_loss
+    print("\rFrame: {:<8}\tEpisode: {}\tFPS: {:.2f}\tAvg. Reward: {:.2f}\tAvg. Length: {:.2f}\tAvg. Loss: {:.2f}".format(
+        frame, n_episodes, fps, avg_reward, avg_length, avg_loss
     ))
 
 def print_args(args):
-    print(' ' * 26 + 'Options')
-    for k, v in vars(args).items():
-        print(' ' * 26 + k + ': ' + str(v))
+    print("Arguments\n=============")
+    for arg in vars(args):
+        print("{} = {}".format(arg, getattr(args, arg)))
+    print("")
 
 def save_model(model, args):
     fname = ""
