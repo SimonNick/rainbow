@@ -1,4 +1,4 @@
-# pytorch-rainbow
+# Rainbow
 
 An implementation of Rainbow in PyTorch. A lot of codes are borrowed from [baselines](https://github.com/openai/baselines), [NoisyNet-A3C](https://github.com/Kaixhin/NoisyNet-A3C), [RL-Adventure](https://github.com/higgsfield).
 
@@ -26,37 +26,36 @@ numpy
 tensorboardX
 ```
 
-I tested code on source built torch-v1.0 with CUDA10.0.
-
 ## Examples
 
-You can specify environment with `--env`
+Training:
 ```
-python main.py --env PongNoFrameskip-v4
-```
-
-You can use RL algorithms with below arguments
-```
-python main.py --multi-step 3 --double --dueling --noisy --c51 --prioritized-replay
-```
-
-## Results
-
-This is tensorboard scalars with Rainbow without multi-step(`--double --dueling --noisy --c51 --prioritized-replay`)
-
-![logs](figs/result.png)
-
-You can enjoy the pretrained model with command
-
-```
-python main.py --evaluate --render --multi-step 3 --double --dueling --noisy --c51 --prioritized-replay
+python main.py \
+--c51 \
+--double \
+--dueling \
+--noisy \
+--prioritized-replay \
+--env BreakoutNoFrameskip-v4
 ```
 
-
-
-
+Evaluation:
+```
+python main.py \
+--render \
+--evaluate \
+--c51 \
+--double \
+--dueling \
+--noisy \
+--prioritized-replay \
+--env BreakoutNoFrameskip-v4 \
+--load-model c51-per-dueling-double-noisy-dqn-model-breakoutv0.pth \
+--seed 0
+```
 
 ## Acknowledgements
-- Kalxhin(https://github.com/Kaixhin/NoisyNet-A3C)
-- higgsfield(https://github.com/higgsfield)
-- openai(https://github.com/openai/baselines)
+- [Kalxhin](https://github.com/Kaixhin/NoisyNet-A3C)
+- [higgsfield](https://github.com/higgsfield)
+- [OpenAI](https://github.com/openai/baselines)
+- [Jungsub Lim](https://github.com/jsrimr/pytorch-rainbow)
