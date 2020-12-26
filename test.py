@@ -5,6 +5,8 @@ import os
 from common.utils import load_model
 from model import DQN
 
+from gym.wrappers import Monitor
+
 def test(env, args): 
     current_model = DQN(env, args).to(args.device)
     current_model.eval()
@@ -13,6 +15,9 @@ def test(env, args):
 
     episode_reward = 0
     episode_length = 0
+
+    if args.render:
+        env = Monitor(env, './video', force=True)
 
     state = env.reset()
     while True:
