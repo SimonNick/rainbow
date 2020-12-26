@@ -52,7 +52,7 @@ python main.py \
 --noisy \
 --prioritized-replay \
 --env BreakoutNoFrameskip-v4 \
---load-model c51-per-dueling-double-noisy-dqn-model-breakoutv0.pth \
+--load-model c51-per-dueling-double-noisy-dqn-model-breakoutv0 \
 --seed 0
 ```
 

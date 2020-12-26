@@ -21,6 +21,8 @@ def get_args():
                         help='Interval of target network update')
     parser.add_argument('--train-freq', type=int, default=1, metavar='STEPS',
                         help='Number of steps between optimization step')
+    parser.add_argument('--checkpoint-freq', type=int, default=None, metavar='STEPS',
+                        help='Number of steps between checkpoints. No checkpoints if set to None.')
     parser.add_argument('--gamma', type=float, default=0.99, metavar='γ',
                         help='Discount factor')
     parser.add_argument('--learning-start', type=int, default=10000, metavar='N',
@@ -75,6 +77,8 @@ def get_args():
     # Evaluation Arguments
     parser.add_argument('--load-model', type=str, default=None,
                         help='Pretrained model name to load (state dict)')
+    parser.add_argument('--load-checkpoint', type=str, default=None,
+                        help='Checkpoint name to load (state dict)')
     parser.add_argument('--save-model', type=str, default='model',
                         help='Pretrained model name to save (state dict)')
     parser.add_argument('--evaluate', action='store_true',

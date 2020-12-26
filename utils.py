@@ -81,6 +81,13 @@ def model_name(args):
     fname += "dqn"
     return fname
     
+def save_checkpoint(model, args, checkpoint_id):
+    checkpoint_folder = "checkpoints/{}-{}".format(model_name(args), args.save_model)
+    fname = os.path.join(checkpoint_folder, f"{checkpoint_id}.pth")
+
+    pathlib.Path(checkpoint_folder).mkdir(exist_ok=True, parents=True)
+    torch.save(model.state_dict(), fname)
+    
 def save_model(model, args):
     fname = "{}-{}.pth".format(model_name(args), args.save_model)
     fname = os.path.join("models", fname)
@@ -90,7 +97,7 @@ def save_model(model, args):
 
 def load_model(model, args):
     if args.load_model is not None:
-        fname = os.path.join("models", args.load_model)
+        fname = args.load_model
     else:
         fname = ""
         if args.multi_step != 1:
@@ -105,8 +112,11 @@ def load_model(model, args):
             fname += "double-"
         if args.noisy:
             fname += "noisy-"
-        fname += "dqn-{}.pth".format(args.save_model)
-        fname = os.path.join("models", fname)
+        fname += "dqn-{}".format(args.save_model)
+    if args.load_checkpoint is None:
+        fname = os.path.join("models", fname + ".pth")
+    else:
+        fname = os.path.join("checkpoints", fname, args.load_checkpoint + ".pth")
 
     if args.device == torch.device("cpu"):
         map_location = lambda storage, loc: storage

@@ -6,7 +6,7 @@ import time, os
 import numpy as np
 from collections import deque
 
-from utils import epsilon_scheduler, beta_scheduler, update_target, print_log, load_model, save_model, print_progress
+from utils import epsilon_scheduler, beta_scheduler, update_target, print_log, load_model, save_model, print_progress, save_checkpoint
 from model import DQN
 from replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
 
@@ -102,6 +102,10 @@ def train(env, args, writer):
             prev_frame = frame_idx
             prev_time = time.time()
             save_model(current_model, args)
+
+        if args.checkpoint_freq is not None and frame_idx % args.checkpoint_freq == 0:
+            save_checkpoint(current_model, args, frame_idx)
+
 
     save_model(current_model, args)
 
