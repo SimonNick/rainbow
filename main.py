@@ -17,8 +17,10 @@ def main():
     print_args(args)
 
     log_dir = create_log_dir(args)
-    if not args.evaluate:
+    if not args.evaluate and args.logging:
         writer = SummaryWriter(log_dir)
+    else:
+        writer = None
 
     env = make_atari(args.env)
     env = wrap_atari_dqn(env, args)
@@ -32,10 +34,11 @@ def main():
         return
 
     train(env, args, writer)
-
-    writer.export_scalars_to_json(os.path.join(log_dir, "all_scalars.json"))
-    writer.close()
     env.close()
+
+    if args.logging:
+        writer.export_scalars_to_json(os.path.join(log_dir, "all_scalars.json"))
+        writer.close()
 
 
 if __name__ == "__main__":

@@ -78,8 +78,9 @@ def train(env, args, writer):
             state = env.reset()
             reward_list.append(episode_reward)
             length_list.append(episode_length)
-            writer.add_scalar("data/episode_reward", episode_reward, frame_idx)
-            writer.add_scalar("data/episode_length", episode_length, frame_idx)
+            if args.logging:
+                writer.add_scalar("data/episode_reward", episode_reward, frame_idx)
+                writer.add_scalar("data/episode_length", episode_length, frame_idx)
             episode_reward, episode_length = 0, 0
             state_deque.clear()
             reward_deque.clear()
@@ -89,7 +90,8 @@ def train(env, args, writer):
             beta = beta_by_frame(frame_idx)
             loss = compute_td_loss(current_model, target_model, replay_buffer, optimizer, args, beta)
             loss_list.append(loss.item())
-            writer.add_scalar("data/loss", loss.item(), frame_idx)
+            if args.logging:
+                writer.add_scalar("data/loss", loss.item(), frame_idx)
 
         if frame_idx % args.update_target == 0:
             update_target(current_model, target_model)

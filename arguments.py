@@ -83,6 +83,8 @@ def get_args():
                         help='Render evaluation agent')
     parser.add_argument('--evaluation_interval', type=int, default=10000,
                         help='Frames for evaluation interval')
+    parser.add_argument('--logging', action='store_true',
+                        help='Log training with TensorboardX')
 
     # Optimization Arguments
     parser.add_argument('--lr', type=float, default=1e-4, metavar='η',
