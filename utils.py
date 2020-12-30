@@ -53,7 +53,7 @@ def print_log(frame, max_frames, n_episodes, prev_frame, prev_time, reward_list,
     avg_loss = np.mean(loss_list) if len(loss_list) != 0 else 0.
 
     print("\r" + " " * 50, end="")
-    print("\rFrame: {:>8} / {}\tEpisode: {}\tFPS: {:.2f}\tAvg. Reward: {:.2f}\tAvg. Length: {:.2f}\tAvg. Loss: {:.2f}".format(
+    print("\rFrame: {:>8} / {}\tEpisode: {}\tFPS: {:.2f}\tAvg. Reward: {:.2f}\tAvg. Length: {:.2f}\tAvg. Loss: {:.6f}".format(
         frame, max_frames, n_episodes, fps, avg_reward, avg_length, avg_loss
     ))
 
