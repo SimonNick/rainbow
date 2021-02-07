@@ -53,12 +53,10 @@ class DQNBase(nn.Module):
         self.flatten = Flatten()
         
         self.features = nn.Sequential(
-            nn.Conv2d(self.input_shape[0], 32, kernel_size=8, stride=4),
+            nn.Linear(self.input_shape[0], 64),
             nn.ReLU(),
-            nn.Conv2d(32, 64, kernel_size=4, stride=2),
+            nn.Linear(64, 64),
             nn.ReLU(),
-            nn.Conv2d(64, 64, kernel_size=3, stride=1),
-            nn.ReLU()
         )
         
         self.fc = nn.Sequential(

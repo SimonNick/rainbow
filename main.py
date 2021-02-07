@@ -23,7 +23,7 @@ def main():
         writer = None
 
     env = make_atari(args.env)
-    env = wrap_atari_dqn(env, args)
+    # env = wrap_atari_dqn(env, args)
 
     set_global_seeds(args.seed)
     env.seed(args.seed)
