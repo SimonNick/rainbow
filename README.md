@@ -1,6 +1,6 @@
 # Rainbow
 
-<img src="Breakout.gif" width="200">
+<img src="Breakout2.gif" width="200">
 
 An implementation of Rainbow in PyTorch. A lot of codes are borrowed from [baselines](https://github.com/openai/baselines), [NoisyNet-A3C](https://github.com/Kaixhin/NoisyNet-A3C), [RL-Adventure](https://github.com/higgsfield).
 
@@ -26,6 +26,7 @@ torch
 torchvision
 numpy
 tensorboardX
+opencv-python
 ```
 
 ## Examples
@@ -33,27 +34,17 @@ tensorboardX
 Training:
 ```
 python main.py \
---c51 \
---double \
---dueling \
---noisy \
---prioritized-replay \
---env BreakoutNoFrameskip-v4
+--max-frames 12000 \
+--env Breakout-ram-v4 \
+--save-model "test" 
 ```
 
 Evaluation:
 ```
 python main.py \
---render \
 --evaluate \
---c51 \
---double \
---dueling \
---noisy \
---prioritized-replay \
---env BreakoutNoFrameskip-v4 \
---load-model c51-per-dueling-double-noisy-dqn-model-breakoutv0 \
---seed 0
+--env Breakout-ram-v4 \
+--load-model "dqn-test"
 ```
 
 ## Acknowledgements
