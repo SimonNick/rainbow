@@ -138,7 +138,7 @@ class CategoricalDQN(DQNBase):
     
         support = torch.linspace(Vmin, Vmax, num_atoms)
         offset = torch.linspace(0, (batch_size - 1) * num_atoms, batch_size).long()\
-            .unsqueeze(1).expand(batch_size, num_atoms)
+            .unsqueeze(1).expand(batch_size, num_atoms).clone()
 
         self.register_buffer('support', support)
         self.register_buffer('offset', offset)
